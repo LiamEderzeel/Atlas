@@ -2,28 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class BridgeManager : MonoBehaviour {
 
-    [SerializeField] private List<Bridge> _bridgParts = new List<Bridge>();
+    [SerializeField] private List<Bridge> _bridgeList = new List<Bridge>();
+    private GameObject _bridgeParts;
+
+    private void Awake ()
+    {
+        _bridgeParts = Resources.Load("Prefabs/BridgePart", typeof(GameObject)) as GameObject;
+    }
 
 	private void Start ()
     {
-        for (int i = 0; i < _bridgParts.Count; ++i)
+        int position = 27;
+        for(int i = 0; i < 8; ++i)
         {
-            _bridgParts[i]._playerPressent += PlayerPressent;
+            GameObject obj = Instantiate(_bridgeParts, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+            obj.transform.name = "Bridge_Part_" + i;
+            obj.transform.parent = this.transform;
+            obj.transform.localPosition = new Vector3(0,0,position);
+            _bridgeList.Add(obj.GetComponent<Bridge>());
+            position -= 9;
+        }
+
+        for(int i = 0; i < _bridgeList.Count; ++i)
+        {
+            _bridgeList[i]._playerPressent += PlayerPressent;
         }
 	}
 
     private void PlayerPressent(Bridge bridge)
     {
-        if(_bridgParts[4] == bridge)
+        if(_bridgeList[4] == bridge)
         {
-            _bridgParts[0].gameObject.transform.position += new Vector3(0,0,-72f);
-            _bridgParts.Add(_bridgParts[0]);
-            _bridgParts.RemoveAt(0);
-
-            //_bridgParts[_bridgParts.Count]
+            _bridgeList[0].gameObject.transform.position += new Vector3(0,0,-72f);
+            _bridgeList.Add(_bridgeList[0]);
+            _bridgeList.RemoveAt(0);
         }
     }
 }
