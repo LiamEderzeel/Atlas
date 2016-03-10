@@ -10,21 +10,21 @@ public class AnimationScript : MonoBehaviour
     int heavyRun1 = Animator.StringToHash("Heavy_Run1");
     int heavyRun2 = Animator.StringToHash("Heavy_Run2");
     [SerializeField] private GameObject _stack;
-   private stack _stackScript;
+   private StackManager _stackManager;
 
     [SerializeField] private int _blockCarryCount;
 
 	// Use this for initialization
 	void Start ()
     {
-        _stackScript = _stack.GetComponent<stack>();
+        _stackManager = _stack.GetComponent<StackManager>();
         Anim = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
 	void Update ()
     {
-        _blockCarryCount = _stackScript.StackSize;
+        _blockCarryCount = _stackManager.StackSize;
         AnimatorStateInfo stateInfo = Anim.GetCurrentAnimatorStateInfo(0);
         if (_blockCarryCount <= 3)
         {

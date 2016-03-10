@@ -9,13 +9,10 @@ public class LetterAnimation : MonoBehaviour {
     private float _timeStartedLerp;
     private float _timeTakenDuringLerp = 1f;
 
-
     public void StartLerp ()
     {
         _isLerping = true;
         _timeStartedLerp = Time.time;
-        print(_timeStartedLerp);
-
     }
 
     void FixedUpdate()
@@ -24,7 +21,6 @@ public class LetterAnimation : MonoBehaviour {
         {
             float timeSinceStarted = Time.time - _timeStartedLerp;
             float percentageComplete = timeSinceStarted / _timeTakenDuringLerp;
-            print(percentageComplete);
 
             gameObject.transform.localPosition = Vector3.Lerp (_startPos, _endPos, percentageComplete);
 

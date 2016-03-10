@@ -10,7 +10,7 @@ public class playerInput : MonoBehaviour {
     [SerializeField] private GameObject letter;
     [SerializeField] private GameObject _bullet;
     private Vector3 _bulletStartPos;
-    private stack _stackScript;
+    private StackManager _stackScript;
     private float screenWidth;
     private float screenHeight;
     private State _state;
@@ -27,7 +27,7 @@ public class playerInput : MonoBehaviour {
         Camera cam = Camera.main;
         screenHeight = 2f * cam.orthographicSize;
         screenWidth = screenHeight * cam.aspect;
-        _stackScript = stack.GetComponent<stack>();
+        _stackScript = stack.GetComponent<StackManager>();
         letter.SetActive(false);
     }
 
@@ -56,7 +56,7 @@ public class playerInput : MonoBehaviour {
             {
                 print("shoot");
                 _bullet.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                _bullet.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1f,0.5f,1f) * _force);
+                _bullet.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-2f,0.6f,2f) * _force);
                 ChangeState(State.main);
                 _shooting = false;
             }
